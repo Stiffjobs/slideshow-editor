@@ -10,8 +10,7 @@ export type CanvasGuidesState = {
 export function CanvasGuides({ guides }: { guides: CanvasGuidesState | null }) {
 	if (!guides) return null;
 
-	const stroke = '#ff4d8d';
-	const dash = [10, 10];
+	const stroke = 'red';
 	const strokeWidth = 2;
 
 	return (
@@ -21,7 +20,6 @@ export function CanvasGuides({ guides }: { guides: CanvasGuidesState | null }) {
 					points={[CANVAS_WIDTH / 2, 0, CANVAS_WIDTH / 2, CANVAS_HEIGHT]}
 					stroke={stroke}
 					strokeWidth={strokeWidth}
-					dash={dash}
 					listening={false}
 				/>
 			) : null}
@@ -30,7 +28,6 @@ export function CanvasGuides({ guides }: { guides: CanvasGuidesState | null }) {
 					points={[0, CANVAS_HEIGHT / 2, CANVAS_WIDTH, CANVAS_HEIGHT / 2]}
 					stroke={stroke}
 					strokeWidth={strokeWidth}
-					dash={dash}
 					listening={false}
 				/>
 			) : null}
