@@ -41,9 +41,9 @@ export function TextLayer({
 	const fitToCanvas = el.fitToCanvas ?? false;
 	const align = el.align ?? 'left';
 
-	const boxWidth = fitToCanvas
-		? Math.max(1, CANVAS_WIDTH - marginX * 2)
-		: undefined;
+	const boxWidth =
+		el.width ??
+		(fitToCanvas ? Math.max(1, CANVAS_WIDTH - marginX * 2) : undefined);
 
 	const depsKey = useMemo(
 		() =>
@@ -92,14 +92,6 @@ export function TextLayer({
 			draggable
 			onClick={onSelect}
 			onTap={onSelect}
-			onDblClick={() => {
-				const next = window.prompt('Edit text', el.text);
-				if (next !== null) onChange({ text: next });
-			}}
-			onDblTap={() => {
-				const next = window.prompt('Edit text', el.text);
-				if (next !== null) onChange({ text: next });
-			}}
 			onDragMove={(e) => {
 				onDragMove?.(e.target as Konva.Group);
 			}}
@@ -114,13 +106,28 @@ export function TextLayer({
 			onTransformEnd={(e) => {
 				const node = e.target as Konva.Group;
 				const scaleX = node.scaleX();
-				const nextFontSize = Math.max(8, Math.round(el.fontSize * scaleX));
+				const scaleY = node.scaleY();
+				const nextFontSize = Math.max(8, Math.round(el.fontSize * scaleY));
+
+				// Calculate new width based on current width or text node's actual width
+				let currentWidth = boxWidth;
+				if (currentWidth === undefined && textRef.current) {
+					// Get the actual text width if no explicit width is set
+					const textNode = textRef.current;
+					currentWidth = textNode.width();
+				}
+				const nextWidth =
+					currentWidth !== undefined
+						? Math.max(50, Math.round(currentWidth * scaleX))
+						: undefined;
+
 				node.scaleX(1);
 				node.scaleY(1);
 				onChange({
 					x: fitToCanvas ? marginX : node.x(),
 					y: node.y(),
 					fontSize: nextFontSize,
+					...(nextWidth !== undefined && { width: nextWidth }),
 				});
 			}}
 		>
@@ -143,7 +150,7 @@ export function TextLayer({
 				x={0}
 				y={0}
 				width={boxWidth}
-				align={fitToCanvas ? align : undefined}
+				align={boxWidth !== undefined ? align : undefined}
 				fontSize={el.fontSize}
 				fill={el.fill}
 				fontFamily={el.fontFamily}
