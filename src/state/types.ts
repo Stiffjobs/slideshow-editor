@@ -21,6 +21,8 @@ export type TextElement = {
 	marginX?: number;
 	/** Konva Text align. Only meaningful when a width is set (fitToCanvas). */
 	align?: 'left' | 'center' | 'right';
+	/** Custom width for the text box. When set, text will wrap to fit. */
+	width?: number;
 };
 
 export type ProjectDoc = {

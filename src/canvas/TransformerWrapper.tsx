@@ -28,7 +28,14 @@ export function TransformerWrapper({
 			ref={trRef}
 			keepRatio={true}
 			rotateEnabled={true}
-			enabledAnchors={['top-left', 'top-right', 'bottom-left', 'bottom-right']}
+			enabledAnchors={[
+				'top-left',
+				'top-right',
+				'bottom-left',
+				'bottom-right',
+				'middle-left',
+				'middle-right',
+			]}
 			boundBoxFunc={(oldBox, newBox) => {
 				if (newBox.width < 20 || newBox.height < 20) return oldBox;
 				return newBox;
