@@ -294,7 +294,7 @@ export function EditorPage() {
 														updateText(selectedText.id, {
 															fill: '#ffffff',
 															stroke: '#000000',
-															strokeWidth: 12,
+															strokeWidth: 8,
 															backgroundFill: undefined,
 															backgroundPadding: 0,
 															backgroundCornerRadius: 0,

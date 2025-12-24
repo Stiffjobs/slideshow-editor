@@ -62,7 +62,7 @@ export const useEditorStore = create<EditorState>((set, get) => ({
 			fontSize: 48,
 			fill: '#ffffff',
 			fontFamily: 'TikTok Sans',
-			fontStyle: 'bold',
+			fontStyle: 'normal',
 			stroke: undefined,
 			strokeWidth: 0,
 			backgroundFill: undefined,
